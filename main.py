@@ -62,9 +62,6 @@ def check_interfaces():
                         if is_connected_to_internet(addr.address):
                             send_pushover_notification(f"Interface {intf} with IP {addr.address} is connected to the Internet.", user_key, api_token)
                             sys.exit()
-                        else:
-                            send_pushover_notification(f"Interface {intf} with IP {addr.address} is not connected to the Internet.", user_key, api_token)
-                            sys.exit()   # Exit the script
 
 if __name__ == "__main__":
 
