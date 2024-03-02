@@ -24,6 +24,7 @@ WantedBy=multi-user.target
         print(f"Service file {service_name}.service created.")
         # Reload systemd to recognize the new service file
         os.system('sudo systemctl daemon-reload')
+        os.system(f'sudo systemctl enable {service_name}.service')
     else:
         print(f"Service file {service_name}.service already exists.")
 
