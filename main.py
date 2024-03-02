@@ -59,8 +59,8 @@ def check_interfaces():
             intf_status = status[intf]
             if intf_status.isup:  # Check if interface is up
                 for addr in addr_list:
-                    if addr.family == socket.AF_INET:  # Check for IPv4 addresses
-                        if is_connected_to_internet(addr.address):
+                    if addr.family == socket.AF_INET and addr.address != '127.0.0.1':  # Check for IPv4 addresses
+                        if is_connected_to_internet('8.8.8.8'):
                             send_pushover_notification(f"Interface {intf} with IP {addr.address} is connected to the Internet.", user_key, api_token)
                             sys.exit() # Exit the script
 
