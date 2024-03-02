@@ -62,16 +62,19 @@ def check_interfaces():
                         if is_connected_to_internet(addr.address):
                             send_pushover_notification(f"Interface {intf} with IP {addr.address} is connected to the Internet.", user_key, api_token)
                             sys.exit()
+                        else:
+                            send_pushover_notification(f"Interface {intf} with IP {addr.address} is not connected to the Internet.", user_key, api_token)
+                            sys.exit()   # Exit the script
 
 if __name__ == "__main__":
 
-    with open('path/to/.config', 'r') as config_file:
+    with open(sys.argv[1], 'r') as config_file:
         config = json.load(config_file)
         user_key = config['PUSHOVER_USER_KEY']
         api_token = config['PUSHOVER_API_TOKEN']
 
     service_name = "ipnotifier"
-    exec_start = f"/usr/bin/python3 {os.path.abspath(__file__)}"
+    exec_start = f"/usr/bin/python3 {os.path.abspath(__file__)} {os.path.abspath(os.getcwd())}/.config"
 
     # Check and create systemd service file if necessary
     ensure_systemd_service_exists(service_name, exec_start)
