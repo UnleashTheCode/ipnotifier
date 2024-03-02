@@ -39,6 +39,7 @@ def send_pushover_notification(message, user_key, api_token):
         print("Notification sent successfully.")
     else:
         print("Failed to send notification.")
+        print(response.text)
 
 
 def is_connected_to_internet(ip_address):
@@ -61,10 +62,7 @@ def check_interfaces():
                     if addr.family == socket.AF_INET:  # Check for IPv4 addresses
                         if is_connected_to_internet(addr.address):
                             send_pushover_notification(f"Interface {intf} with IP {addr.address} is connected to the Internet.", user_key, api_token)
-                            sys.exit()
-                        else:
-                            send_pushover_notification(f"Interface {intf} with IP {addr.address} is not connected to the Internet.", user_key, api_token)
-                            sys.exit()   # Exit the script
+                            sys.exit() # Exit the script
 
 if __name__ == "__main__":
 
